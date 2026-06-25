@@ -470,7 +470,40 @@ svg {
   margin: 0;
 }
 
-.section-heading span {
+.rotating-heading {
+  display: inline-block;
+  min-width: min(100%, 9.8em);
+  transform-origin: center;
+  will-change: opacity, transform;
+}
+
+.rotating-heading.is-flipping {
+  animation: heading-flip 560ms cubic-bezier(0.2, 0.72, 0.18, 1) both;
+}
+
+@keyframes heading-flip {
+  0% {
+    opacity: 1;
+    transform: perspective(700px) rotateX(0deg) translateY(0);
+  }
+
+  42% {
+    opacity: 0;
+    transform: perspective(700px) rotateX(78deg) translateY(-8px);
+  }
+
+  58% {
+    opacity: 0;
+    transform: perspective(700px) rotateX(-78deg) translateY(8px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: perspective(700px) rotateX(0deg) translateY(0);
+  }
+}
+
+.section-heading > span {
   color: var(--ink-soft);
   display: block;
   font-size: 1.04rem;
@@ -644,12 +677,12 @@ svg {
   background-position: 76% 62%;
 }
 
-.category-outdoor,
 .category-improvement {
   background-image: url("vbm_assets/Power_tools_Tubnail.png");
 }
 
 .category-outdoor {
+  background-image: url("vbm_assets/A_spacious_and_modern_outdoor_202606242207.jpeg");
   background-position: center;
 }
 
@@ -1077,6 +1110,12 @@ svg {
 
   .footer {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rotating-heading.is-flipping {
+    animation: none;
   }
 }
 

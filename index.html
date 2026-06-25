@@ -174,7 +174,7 @@
     <section class="categories" id="categories">
       <div class="section-heading">
         <p>Featured categories</p>
-        <h2>Shop by room, task, or upgrade.</h2>
+        <h2>Shop by <span class="rotating-heading" data-rotating-heading>room, task, or upgrade.</span></h2>
         <span>Find everyday essentials and bigger home upgrades in a layout built for fast discovery.</span>
       </div>
 
@@ -354,6 +354,32 @@
       toggle.setAttribute("aria-expanded", String(!isOpen));
       menu.classList.toggle("is-open", !isOpen);
     });
+
+    const rotatingHeading = document.querySelector("[data-rotating-heading]");
+    const rotatingPhrases = [
+      "room, task, or upgrade.",
+      "kitchen, laundry, or patio.",
+      "comfort, storage, or repairs.",
+      "daily needs or big upgrades."
+    ];
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if (rotatingHeading && !reduceMotion) {
+      let phraseIndex = 0;
+
+      setInterval(() => {
+        rotatingHeading.classList.add("is-flipping");
+
+        setTimeout(() => {
+          phraseIndex = (phraseIndex + 1) % rotatingPhrases.length;
+          rotatingHeading.textContent = rotatingPhrases[phraseIndex];
+        }, 240);
+
+        setTimeout(() => {
+          rotatingHeading.classList.remove("is-flipping");
+        }, 560);
+      }, 3200);
+    }
   </script>
 </body>
 </html>
